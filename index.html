@@ -16,7 +16,7 @@
 <div id="contenido">Cargando...</div>
 
 <script>
-const CSV_URL = "https://drive.google.com/file/d/1pCn1BnogNf8HUckZPy6EavIUsql2mY-m/view?usp=sharing";
+const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSYj55nCHEEnKGbrV3EgK-X6ZPNRyCFVNoecBNvwe08J9kQ94KJdzw2lHLwWWhFfA/pub?gid=1887717955&single=true&output=csv";
 
 const codigo = location.pathname.replace("/", "").toUpperCase();
 const div = document.getElementById("contenido");
@@ -28,7 +28,7 @@ fetch(CSV_URL)
     const h = filas.shift();
 
     const i = {
-      c: h.indexOf("COD_ALFA"),
+      c: h.indexOf("codigo"),
       n: h.indexOf("DETALLE"),
       m: h.indexOf("NOM_MARCA"),
       p: h.indexOf("PRECIO"),
