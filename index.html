@@ -16,7 +16,7 @@
 <div id="contenido">Cargando...</div>
 
 <script>
-const CSV_URL = "PEGAR_ACA_TU_URL_DE_GOOGLE_SHEETS";
+const CSV_URL = "https://drive.google.com/file/d/1pCn1BnogNf8HUckZPy6EavIUsql2mY-m/view?usp=sharing";
 
 const codigo = location.pathname.replace("/", "").toUpperCase();
 const div = document.getElementById("contenido");
@@ -28,12 +28,12 @@ fetch(CSV_URL)
     const h = filas.shift();
 
     const i = {
-      c: h.indexOf("codigo"),
-      n: h.indexOf("nombre"),
-      m: h.indexOf("marca"),
-      p: h.indexOf("precio_final"),
-      s: h.indexOf("precio_sin_impuestos"),
-      st: h.indexOf("stock")
+      c: h.indexOf("COD_ALFA"),
+      n: h.indexOf("DETALLE"),
+      m: h.indexOf("NOM_MARCA"),
+      p: h.indexOf("PRECIO"),
+      s: h.indexOf("TCOST_CIVA"),
+      st: h.indexOf("STOCK1")
     };
 
     const prod = filas.find(f => f[i.c] === codigo);
