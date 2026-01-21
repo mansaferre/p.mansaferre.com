@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Mansa Ferre - Precio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 16px; }
+    h1 { font-size: 20px; }
+    .precio { font-size: 22px; font-weight: bold; margin-top: 12px; }
+    .chico { font-size: 12px; color: #555; }
+  </style>
+</head>
+<body>
+
+<div id="contenido">Cargando...</div>
+
+<script>
+const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSYj55nCHEEnKGbrV3EgK-X6ZPNRyCFVNoecBNvwe08J9kQ94KJdzw2lHLwWWhFfA/pub?gid=1887717955&single=true&output=csv";
+
+const codigo = location.pathname.split("/").pop().toUpperCase();
+const div = document.getElementById("contenido");
+
+fetch(CSV_URL)
+  .then(r => r.text())
+  .then(t => {
+    const filas = t.split("\n").map(f => f.split(","));
+    const h = filas.shift();
+
+    const i = {
+      c: h.indexOf("codigo"),
+      n: h.indexOf("DETALLE"),
+      m: h.indexOf("NOM_MARCA"),
+      p: h.indexOf("PRECIO"),
+      s: h.indexOf("TCOST_CIVA"),
+      st: h.indexOf("STOCK1")
+    };
+
+    const prod = filas.find(f => f[i.c] === codigo);
+
+    if (!prod) {
+      div.innerHTML = "Producto no encontrado";
+      return;
+    }
+
+    div.innerHTML = `
+      <h1>${prod[i.n]}</h1>
+      <div>Marca: ${prod[i.m]}</div>
+      <div class="precio">$ ${Number(prod[i.p]).toLocaleString("es-AR")}</div>
+      <div class="chico">Precio sin impuestos nacionales: $ ${Number(prod[i.s]).toLocaleString("es-AR")}</div>
+      <div>Stock: ${prod[i.st]}</div>
+      <div class="chico">Mansa Ferre – Honramos el trabajo bien hecho</div>
+    `;
+  });
+</script>
+
+</body>
+</html>
